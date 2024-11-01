@@ -1,0 +1,101 @@
+<head> </head>
+<body>
+
+    <form id = 'generate_tag' >
+        <input type = 'radio' name = 'type' value="art"> 
+        art
+        <input type = 'radio' name = 'type' value="strip"> 
+        strip
+        <input type = 'radio' name = 'type' value="special"> 
+        SundaySpecial <br/>
+    </form>
+    <label id = 'row_1'> There will be final tag</label>
+    <br/>
+    <label id = row_2> </label>
+
+    <script>
+        const applicantForm = document.getElementById('generate_tag');
+        applicantForm.addEventListener('submit', handleFormSubmit);
+
+        function serializeForm(type_of_post, list_of_characters) {
+            const sign = '@ruspeanuts';
+            var begin = '';
+            var second_row = '';
+
+            switch(type_of_post){
+                case 'art': begin = '#Peanuts ' + 'aрт@ruspeanuts'; break;
+                case 'strip': begin = '#Peanuts Peanuts YYYY-MM-DD №nnnn'; break;
+                case 'special': begin = '#SaturdaySpecials YYYY-MM-DD'; second_row += '#Peanuts '; break;
+            }
+
+            console.log(list_of_characters)
+            for (index in list_of_characters)
+            {   
+                character = list_of_characters[index]
+                console.log(character);
+                character += sign;
+                second_row += character + ' ';
+            }
+
+            showAnswear(begin, second_row)
+        }
+
+        function handleFormSubmit(event) {
+            // Просим форму не отправлять данные самостоятельно
+            event.preventDefault();
+
+             // Collect selected checkboxes
+            const checkboxes = applicantForm.querySelectorAll('input[type="checkbox"]:checked');
+            const selectedCheckboxes = Array.from(checkboxes).map(checkbox => checkbox.value);
+
+            // Collect selected radio button (only one per radio group is allowed to be checked)
+            const radioButton = applicantForm.querySelector('input[name="type"]:checked');
+            const selectedRadioButton = radioButton ? radioButton.value : "strip";
+
+
+            serializeForm(selectedRadioButton, selectedCheckboxes);
+          }
+
+          function showAnswear(row_1, row_2){
+            var first_line = document.getElementById('row_1');
+            first_line.textContent = row_1;
+            
+            var second_line = document.getElementById('row_2');
+            second_line.textContent = row_2;
+          }
+    </script>
+
+    <script> 
+        var characters_dictionary = 
+        {
+            'Чарли Браун': '#charlibrown',
+            'Лайнус': '#linus',
+            'Люси': '#lucy'
+        };
+    const sign = '@ruspeanuts';
+    
+    var character_div = document.createElement("div");
+    var applicant = document.getElementById('generate_tag')
+    applicant.appendChild(character_div);
+    
+    for(name in characters_dictionary)
+    {   
+        var character = document.createElement("input");
+        var character_name = document.createElement("label");
+        
+        character.setAttribute('type', 'checkbox');
+        character.setAttribute('text', name);
+        character.setAttribute('value', characters_dictionary[name]);
+        character_name.textContent = name;
+        
+        character_div.appendChild(character);
+        character_div.appendChild(character_name);
+    }
+
+    var button = document.createElement("button");
+    button.setAttribute("type", 'sumbmit');
+    button.textContent = "Suuuubmit";
+    applicant.appendChild(button);
+    </script>
+</body>
+
