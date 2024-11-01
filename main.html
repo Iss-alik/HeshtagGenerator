@@ -8,7 +8,9 @@
         strip
         <input type = 'radio' name = 'type' value="special"> 
         SundaySpecial <br/>
+        <br/>
     </form>
+
     <label id = 'row_1'> There will be final tag</label>
     <br/>
     <label id = row_2> </label>
@@ -69,8 +71,21 @@
         var characters_dictionary = 
         {
             'Чарли Браун': '#charlibrown',
+            'Салли Браун': '#sally',
             'Лайнус': '#linus',
-            'Люси': '#lucy'
+            'Люси': '#lucy', 
+            'Рерун': '#rerun',
+            'Снупи': '#snoopy',
+            'Вудсток': '#woodstock',            
+            'Шрёдер': '#schroeder',
+            'Пиг Пен': '#pig_pen',
+            'Шерми': '#shermy',
+            'Пэтти': '#patty',
+            'Вайолет': '#violet',
+            'Шарлотта Праун': '#сharlottebraun',
+            'Марси': '#marcie',
+            'Пепперминт Пэтти': '#peppermintpatty',
+            'Маленькая рыжеволосая девочка': '#LittleRedHairedGirl'
         };
     const sign = '@ruspeanuts';
     
@@ -78,10 +93,12 @@
     var applicant = document.getElementById('generate_tag')
     applicant.appendChild(character_div);
     
+    var counter = 1;
     for(name in characters_dictionary)
     {   
         var character = document.createElement("input");
         var character_name = document.createElement("label");
+        var br = document.createElement("br");
         
         character.setAttribute('type', 'checkbox');
         character.setAttribute('text', name);
@@ -90,11 +107,16 @@
         
         character_div.appendChild(character);
         character_div.appendChild(character_name);
+
+        if(counter%3 == 0){
+            character_div.appendChild(br);
+        }
+        counter++;
     }
 
     var button = document.createElement("button");
     button.setAttribute("type", 'sumbmit');
-    button.textContent = "Suuuubmit";
+    button.textContent = "Generate";
     applicant.appendChild(button);
     </script>
 </body>
